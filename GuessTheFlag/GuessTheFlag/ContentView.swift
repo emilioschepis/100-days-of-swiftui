@@ -11,6 +11,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var showingScore = false
     @State private var scoreTitle = ""
+    @State private var scoreText = ""
+    @State private var currentScore = 0
     
     @State private var countries = [
         "Estonia", "France", "Germany", "Ireland", "Italy",
@@ -29,7 +31,9 @@ struct ContentView: View {
                     Text(countries[correctAnswer])
                         .font(.largeTitle)
                         .fontWeight(.black)
+                    Text("Current score: \(currentScore)")
                 }
+                .frame(minWidth: 0, maxWidth: .infinity, alignment: .top)
                 ForEach(0..<3) { number in
                     Button(action: {
                         self.flagTapped(number)
@@ -46,8 +50,10 @@ struct ContentView: View {
             }
         }
         .alert(isPresented: $showingScore) {
-            Alert(title: Text(scoreTitle), message: Text("Your score is ???"), dismissButton: .default(Text("Continue")) {
-                self.askQuestion()
+            Alert(title: Text(scoreTitle),
+                  message: Text(scoreText),
+                  dismissButton: .default(Text("Continue")) {
+                    self.askQuestion()
                 })
         }
     }
@@ -59,9 +65,13 @@ struct ContentView: View {
     
     func flagTapped(_ number: Int) {
         if number == correctAnswer {
+            currentScore += 1
             scoreTitle = "Correct"
+            scoreText = "Your score is \(currentScore)"
         } else {
+            currentScore = 0
             scoreTitle = "Wrong"
+            scoreText = "That's the flag of \(countries[number])."
         }
         
         showingScore = true
