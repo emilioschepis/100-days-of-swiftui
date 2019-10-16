@@ -38,11 +38,7 @@ struct ContentView: View {
                     Button(action: {
                         self.flagTapped(number)
                     }) {
-                        Image(self.countries[number])
-                            .renderingMode(.original)
-                            .clipShape(Capsule())
-                            .overlay(Capsule().stroke(Color.primary, lineWidth: 1))
-                            .shadow(color: .black, radius: 2)
+                        FlagImage(country: self.countries[number])
                     }
                     
                 }
@@ -75,6 +71,18 @@ struct ContentView: View {
         }
         
         showingScore = true
+    }
+}
+
+struct FlagImage: View {
+    let country: String
+    
+    var body: some View {
+        Image(country)
+        .renderingMode(.original)
+        .clipShape(Capsule())
+        .overlay(Capsule().stroke(Color.primary, lineWidth: 1))
+        .shadow(color: .black, radius: 2)
     }
 }
 
