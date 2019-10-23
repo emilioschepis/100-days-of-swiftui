@@ -16,10 +16,19 @@ struct ContentView: View {
     @State private var errorMessage = ""
     @State private var showingError = false
     
+    private var score: Int {
+        return usedWords.reduce(0, { $0 + $1.count })
+    }
+    
     func addNewWord() {
         let answer = newWord.lowercased().trimmingCharacters(in: .whitespacesAndNewlines)
         
         guard answer.count > 0 else {
+            return
+        }
+        
+        guard isCreative(word: answer) else {
+            wordError(title: "Word matches", message: "That would be too easy")
             return
         }
         
@@ -32,6 +41,11 @@ struct ContentView: View {
             wordError(title: "Word not possible", message: "You can't just make them up, you know!")
             return
         }
+        
+        guard isEnough(word: answer) else {
+            wordError(title: "Word too short", message: "Find more complex words")
+            return
+        }
 
         guard isReal(word: answer) else {
             wordError(title: "Word not recognized", message: "That isn't a real word.")
@@ -40,6 +54,14 @@ struct ContentView: View {
         
         usedWords.insert(answer, at: 0)
         newWord = ""
+    }
+    
+    func isCreative(word: String) -> Bool {
+        return word != rootWord
+    }
+    
+    func isEnough(word: String) -> Bool {
+        return word.count > 3
     }
     
     func isOriginal(word: String) -> Bool {
@@ -80,6 +102,8 @@ struct ContentView: View {
         let words = wordsString.components(separatedBy: .newlines)
         
         rootWord = words.randomElement() ?? "silkworm"
+        newWord = ""
+        usedWords = []
     }
     
     func wordError(title: String, message: String) {
@@ -99,12 +123,14 @@ struct ContentView: View {
                     Image(systemName: "\($0.count).circle")
                     Text($0)
                 }
+                Text("Current score: \(score)")
             }
             .navigationBarTitle(rootWord)
             .onAppear(perform: startGame)
             .alert(isPresented: $showingError) {
                 Alert(title: Text(errorTitle), message: Text(errorMessage), dismissButton: .default(Text("OK")))
             }
+            .navigationBarItems(leading: Button("New word", action: startGame))
         }
     }
 }
