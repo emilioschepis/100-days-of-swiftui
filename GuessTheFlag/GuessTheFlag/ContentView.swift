@@ -9,11 +9,11 @@
 import SwiftUI
 
 struct ContentView: View {
-    @State private var showingScore = false
-    @State private var scoreTitle = ""
-    @State private var scoreText = ""
     @State private var currentScore = 0
-    
+    @State private var rotations: [Double] = [0, 0, 0]
+    @State private var opacities: [Double] = [1, 1, 1]
+    @State private var scales: [CGFloat] = [1, 1, 1]
+    @State private var buttonsEnabled: Bool = true
     @State private var countries = [
         "Estonia", "France", "Germany", "Ireland", "Italy",
         "Nigeria", "Poland", "Russia", "Spain", "UK", "US"
@@ -40,17 +40,14 @@ struct ContentView: View {
                     }) {
                         FlagImage(country: self.countries[number])
                     }
-                    
+                    .rotation3DEffect(.degrees(self.rotations[number]), axis: (x: 0, y: 1, z: 0))
+                    .opacity(self.opacities[number])
+                    .scaleEffect(self.scales[number], anchor: .center)
+                    .animation(.easeInOut(duration: 1))
+                    .disabled(!self.buttonsEnabled)
                 }
                 Spacer()
             }
-        }
-        .alert(isPresented: $showingScore) {
-            Alert(title: Text(scoreTitle),
-                  message: Text(scoreText),
-                  dismissButton: .default(Text("Continue")) {
-                    self.askQuestion()
-                })
         }
     }
     
@@ -60,17 +57,26 @@ struct ContentView: View {
     }
     
     func flagTapped(_ number: Int) {
-        if number == correctAnswer {
-            currentScore += 1
-            scoreTitle = "Correct"
-            scoreText = "Your score is \(currentScore)"
-        } else {
-            currentScore = 0
-            scoreTitle = "Wrong"
-            scoreText = "That's the flag of \(countries[number])."
+        buttonsEnabled = false
+        
+        for i in 0..<3 where i != correctAnswer {
+            opacities[i] = 0.3
         }
         
-        showingScore = true
+        if number == correctAnswer {
+            currentScore += 1
+            rotations[number] += 360
+        } else {
+            currentScore = 0
+            scales[number] = 0.3
+        }
+        
+        Timer.scheduledTimer(withTimeInterval: 1.5, repeats: false) { _ in
+            self.scales = [1, 1, 1]
+            self.opacities = [1, 1, 1]
+            self.askQuestion()
+            self.buttonsEnabled = true
+        }
     }
 }
 
