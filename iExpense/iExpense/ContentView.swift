@@ -26,12 +26,13 @@ struct ContentView: View {
 
                         Spacer()
                         Text("\(item.amount, specifier: "%.2f") €")
+                            .foregroundColor(self.colorForExpense(item))
                     }
                 }
                 .onDelete(perform: removeItems)
             }
             .navigationBarTitle("iExpense")
-            .navigationBarItems(trailing: Button(action: {
+            .navigationBarItems(leading: EditButton(), trailing: Button(action: {
                 self.showingAddExpense = true
             }) {
                 Image(systemName: "plus")
@@ -39,6 +40,19 @@ struct ContentView: View {
             .sheet(isPresented: $showingAddExpense) {
                 AddView(expenses: self.expenses)
             }
+        }
+    }
+    
+    func colorForExpense(_ item: ExpenseItem) -> Color {
+        switch item.amount {
+        case 0...10:
+            return .blue
+        case 10...100:
+            return .green
+        case 100...:
+            return .orange
+        default:
+            return .red
         }
     }
     

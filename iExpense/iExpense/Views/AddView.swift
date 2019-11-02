@@ -12,13 +12,16 @@ struct AddView: View {
     @Environment(\.presentationMode) var presentationMode
     
     @ObservedObject var expenses: Expenses
-
+    
     @State private var name = ""
     @State private var type = "Personal"
     @State private var amount = ""
+    @State private var showingAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
     
     private let types = ["Business", "Personal"]
-
+    
     var body: some View {
         NavigationView {
             Form {
@@ -31,15 +34,30 @@ struct AddView: View {
                 TextField("Amount", text: $amount)
                     .keyboardType(.numberPad)
             }
+            .alert(isPresented: $showingAlert) {
+                Alert(title: Text(self.alertTitle),
+                      message: Text(self.alertMessage),
+                      dismissButton: .default(Text("OK")))
+            }
             .navigationBarTitle("Add new expense")
             .navigationBarItems(trailing: Button("Save") {
-                if let actualAmount = Double(self.amount) {
-                    let item = ExpenseItem(name: self.name, type: self.type, amount: actualAmount)
-                    self.expenses.items.append(item)
-                    self.presentationMode.wrappedValue.dismiss()
+                guard let actualAmount = Double(self.amount) else {
+                    self.showAmountError()
+                    return
                 }
+                
+                let item = ExpenseItem(name: self.name, type: self.type, amount: actualAmount)
+                self.expenses.items.append(item)
+                self.presentationMode.wrappedValue.dismiss()
             })
+            
         }
+    }
+    
+    func showAmountError() {
+        alertTitle = "Invalid amount"
+        alertMessage = "Please enter a number."
+        showingAlert = true
     }
 }
 
