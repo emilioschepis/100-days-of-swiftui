@@ -8,52 +8,42 @@
 
 import SwiftUI
 
-struct SecondView: View {
-    @Environment(\.presentationMode) var presentationMode
-    let name: String
-    
-    var body: some View {
-        VStack {
-            Text("Hello, \(name)")
-            Button("Dismiss") {
-                self.presentationMode.wrappedValue.dismiss()
-            }
-        }
-    }
-}
-
 struct ContentView: View {
-    @State private var numbers = [Int]()
-    @State private var currentNumber = UserDefaults.standard.integer(forKey: "number")
-    @State private var showingSheet = false
+    @ObservedObject var expenses = Expenses()
+    
+    @State private var showingAddExpense = false
     
     var body: some View {
         NavigationView {
-            VStack(spacing: 16) {
-                List {
-                    ForEach(numbers, id: \.self) {
-                        Text("\($0)")
+            List {
+                ForEach(expenses.items) { item in
+                    HStack {
+                        VStack(alignment: .leading) {
+                            Text(item.name)
+                                .font(.headline)
+                            Text(item.type)
+                        }
+
+                        Spacer()
+                        Text("\(item.amount, specifier: "%.2f") €")
                     }
-                    .onDelete(perform: removeRows)
                 }
-                Button("Add number") {
-                    self.numbers.append(self.currentNumber)
-                    self.currentNumber += 1
-                    UserDefaults.standard.set(self.currentNumber, forKey: "number")
-                }
-                Button("Show sheet") {
-                    self.showingSheet.toggle()
-                }
+                .onDelete(perform: removeItems)
             }
-            .navigationBarItems(leading: EditButton())
-        }
-        .sheet(isPresented: $showingSheet) {
-            SecondView(name: "@emilioschepis")
+            .navigationBarTitle("iExpense")
+            .navigationBarItems(trailing: Button(action: {
+                self.showingAddExpense = true
+            }) {
+                Image(systemName: "plus")
+            })
+            .sheet(isPresented: $showingAddExpense) {
+                AddView(expenses: self.expenses)
+            }
         }
     }
     
-    func removeRows(at offsets: IndexSet) {
-        numbers.remove(atOffsets: offsets)
+    func removeItems(at offsets: IndexSet) {
+        expenses.items.remove(atOffsets: offsets)
     }
 }
 
