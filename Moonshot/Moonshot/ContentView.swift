@@ -8,30 +8,24 @@
 
 import SwiftUI
 
-struct DetailView: View {
-    let detail: String
+struct ContentView: View {
+    let astronauts: [Astronaut] = Bundle.main.decode("astronauts.json")
+    let missions: [Mission] = Bundle.main.decode("missions.json")
     
     var body: some View {
-        GeometryReader { geo in
-            ScrollView(.vertical) {
-                VStack(spacing: 10) {
-                    Image("SwiftUI")
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: geo.size.width)
-                }
-            }
-        }
-        .navigationBarTitle("Screen #\(detail)")
-    }
-}
-
-struct ContentView: View {
-    var body: some View {
         NavigationView {
-            List(0..<100) { num in
-                NavigationLink(destination: DetailView(detail: "\(num)")) {
-                    Text("\(num)")
+            List(missions) { mission in
+                NavigationLink(destination: Text("Detail view")) {
+                    Image(mission.image)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 44, height: 44)
+
+                    VStack(alignment: .leading) {
+                        Text(mission.displayName)
+                            .font(.headline)
+                        Text(mission.formattedLaunchDate)
+                    }
                 }
             }
             .navigationBarTitle("Moonshot")
