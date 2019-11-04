@@ -22,6 +22,10 @@ struct Mission: Codable, Identifiable {
         "apollo\(id)"
     }
     
+    var crewNames: String {
+        crew.map { $0.name }.joined(separator: ", ")
+    }
+    
     var formattedLaunchDate: String {
         if let launchDate = launchDate {
             let formatter = DateFormatter()

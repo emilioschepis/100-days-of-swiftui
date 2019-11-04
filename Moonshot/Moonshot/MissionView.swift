@@ -41,6 +41,8 @@ struct MissionView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(maxWidth: geo.size.width * 0.7)
+                    Text(self.mission.formattedLaunchDate)
+                        .fontWeight(.bold)
                     Text(self.mission.description)
                         .padding()
                     

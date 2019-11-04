@@ -10,6 +10,15 @@ import SwiftUI
 
 struct AstronautView: View {
     let astronaut: Astronaut
+    let missions: [Mission]
+    
+    init(astronaut: Astronaut) {
+        self.astronaut = astronaut
+        
+        let allMissions: [Mission] = Bundle.main.decode("missions.json")
+        
+        missions = allMissions.filter { $0.crew.map { c in c.name }.contains(astronaut.id) }
+    }
     
     var body: some View {
         GeometryReader { geometry in
@@ -23,6 +32,15 @@ struct AstronautView: View {
                     Text(self.astronaut.description)
                         .padding()
                         .layoutPriority(1)
+                    
+                    HStack {
+                        ForEach(self.missions) { mission in
+                            Image(mission.image)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 60, height: 60)
+                        }
+                    }
                 }
             }
         }
