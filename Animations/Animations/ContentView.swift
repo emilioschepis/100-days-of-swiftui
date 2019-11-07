@@ -69,25 +69,82 @@ struct Flower: Shape {
     }
 }
 
+struct Trapezoid: Shape {
+    var animatableData: AnimatablePair<CGFloat, CGFloat> {
+        get { AnimatablePair(firstInset, secondInset) }
+        set {
+            self.firstInset = newValue.first
+            self.secondInset = newValue.second
+        }
+    }
+    
+    var firstInset: CGFloat = 0
+    var secondInset: CGFloat = 0
+    
+    func path(in rect: CGRect) -> Path {
+        var path = Path()
+        
+        path.move(to: CGPoint(x: secondInset, y: rect.maxY))
+        path.addLine(to: CGPoint(x: firstInset, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX - firstInset, y: rect.minY))
+        path.addLine(to: CGPoint(x: rect.maxX - secondInset, y: rect.maxY))
+        path.addLine(to: CGPoint(x: 0, y: rect.maxY))
+        
+        return path
+    }
+}
+
 struct ContentView: View {
-    @State private var petalOffset = -20.0
-    @State private var petalWidth = 100.0
-    @State private var colorCycle = 0.0
+    @State private var amount: CGFloat = 0.5
+    @State private var firstInset: CGFloat = 50
+    @State private var secondInset: CGFloat = 50
     
     var body: some View {
         VStack {
             ZStack {
-                ColorCyclingCircle(amount: colorCycle)
-               Flower(petalOffset: petalOffset, petalWidth: petalWidth)
-                .fill(Color.white, style: FillStyle(eoFill: true))
+                Trapezoid(firstInset: firstInset, secondInset: secondInset)
+                    .frame(width: 500 * amount, height: 100)
+                    .offset(x: -80)
+                    .foregroundColor(Color.red)
+                    .blendMode(.screen)
+                    .onTapGesture {
+                        withAnimation(.linear) {
+                            self.firstInset = CGFloat.random(in: 10...90)
+                            self.secondInset = CGFloat.random(in: 10...90)
+                        }
+                }
+                
+                Trapezoid(firstInset: firstInset, secondInset: secondInset)
+                    .frame(width: 500 * amount, height: 100)
+                    .foregroundColor(Color.green)
+                    .offset(x: 80)
+                    .blendMode(.screen)
+                    .onTapGesture {
+                        withAnimation(.linear) {
+                            self.firstInset = CGFloat.random(in: 10...90)
+                            self.secondInset = CGFloat.random(in: 10...90)
+                        }
+                }
+                
+                Trapezoid(firstInset: firstInset, secondInset: secondInset)
+                    .frame(width: 500 * amount, height: 100)
+                    .foregroundColor(Color.blue)
+                    .blendMode(.screen)
+                    .onTapGesture {
+                        withAnimation(.linear) {
+                            self.firstInset = CGFloat.random(in: 10...90)
+                            self.secondInset = CGFloat.random(in: 10...90)
+                        }
+                }
             }
-
-            Text("Offset")
-            Slider(value: $petalOffset, in: -20...20).padding([.horizontal, .bottom])
+            .frame(width: 300, height: 300)
             
-            Text("Width")
-            Slider(value: $petalWidth, in: 0...100).padding(.horizontal)
+            Slider(value: $amount)
+                .padding()
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.black)
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
