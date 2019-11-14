@@ -9,8 +9,10 @@
 import SwiftUI
 
 struct CheckoutView: View {
-    @ObservedObject var order: Order
+    @ObservedObject var observed: ObservableOrder
+    @State private var errorMessage = ""
     @State private var confirmationMessage = ""
+    @State private var showingError = false
     @State private var showingConfirmation = false
     
     var body: some View {
@@ -22,13 +24,16 @@ struct CheckoutView: View {
                         .scaledToFit()
                         .frame(width: geo.size.width)
                     
-                    Text("Your total is $\(self.order.cost, specifier: "%.2f")")
+                    Text("Your total is $\(self.observed.order.cost, specifier: "%.2f")")
                         .font(.title)
                     
                     Button("Place order") {
                         self.placeOrder()
                     }
                     .padding()
+                    .alert(isPresented: self.$showingError) {
+                        Alert(title: Text("Networking error"), message: Text(self.errorMessage), dismissButton: .default(Text("OK")))
+                    }
                 }
             }
         }
@@ -39,7 +44,7 @@ struct CheckoutView: View {
     }
     
     func placeOrder() {
-        guard let encoded = try? JSONEncoder().encode(order) else {
+        guard let encoded = try? JSONEncoder().encode(observed.order) else {
             print("Failed to encode order.")
             return
         }
@@ -51,13 +56,14 @@ struct CheckoutView: View {
         request.httpBody = encoded
         
         URLSession.shared.dataTask(with: request) { data, response, error in
-            guard let data = data else {
-                print("No data in response.")
+            guard let data = data, error == nil else {
+                self.errorMessage = "There was a problem with your request. You will not be charged. Please try again later."
+                self.showingError = true
                 return
             }
             
-            if let decodedOrder = try? JSONDecoder().decode(Order.self, from: data) {
-                self.confirmationMessage = "Your order for \(decodedOrder.quantity)x \(Order.types[decodedOrder.type].lowercased()) cupcakes is on its way!"
+            if let decodedOrder = try? JSONDecoder().decode(ObservableOrder.Order.self, from: data) {
+                self.confirmationMessage = "Your order for \(decodedOrder.quantity)x \(ObservableOrder.Order.types[decodedOrder.type].lowercased()) cupcakes is on its way!"
                 self.showingConfirmation = true
             } else {
                 print("Invalid response.")
@@ -69,6 +75,6 @@ struct CheckoutView: View {
 
 struct CheckoutView_Previews: PreviewProvider {
     static var previews: some View {
-        CheckoutView(order: Order())
+        CheckoutView(observed: ObservableOrder())
     }
 }
