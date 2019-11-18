@@ -14,6 +14,9 @@
 		BC63D6E4237E7658000A3A38 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC63D6E3237E7658000A3A38 /* Assets.xcassets */; };
 		BC63D6E7237E7658000A3A38 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC63D6E6237E7658000A3A38 /* Preview Assets.xcassets */; };
 		BC63D6EA237E7658000A3A38 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC63D6E8237E7658000A3A38 /* LaunchScreen.storyboard */; };
+		BCCE4D2B2383245600F68DEB /* AddBookView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCE4D2A2383245600F68DEB /* AddBookView.swift */; };
+		BCCE4D2D23832DA500F68DEB /* RatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCE4D2C23832DA500F68DEB /* RatingView.swift */; };
+		BCCE4D2F23832F2E00F68DEB /* EmojiRatingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCCE4D2E23832F2E00F68DEB /* EmojiRatingView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		BC63D6E6237E7658000A3A38 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BC63D6E9237E7658000A3A38 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC63D6EB237E7658000A3A38 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCCE4D2A2383245600F68DEB /* AddBookView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddBookView.swift; sourceTree = "<group>"; };
+		BCCE4D2C23832DA500F68DEB /* RatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RatingView.swift; sourceTree = "<group>"; };
+		BCCE4D2E23832F2E00F68DEB /* EmojiRatingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmojiRatingView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +64,7 @@
 		BC63D6D9237E7655000A3A38 /* Bookworm */ = {
 			isa = PBXGroup;
 			children = (
+				BCCE4D292383243F00F68DEB /* Views */,
 				BC63D6DA237E7655000A3A38 /* AppDelegate.swift */,
 				BC63D6DC237E7655000A3A38 /* SceneDelegate.swift */,
 				BC63D6E1237E7655000A3A38 /* ContentView.swift */,
@@ -76,6 +83,16 @@
 				BC63D6E6237E7658000A3A38 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		BCCE4D292383243F00F68DEB /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				BCCE4D2A2383245600F68DEB /* AddBookView.swift */,
+				BCCE4D2C23832DA500F68DEB /* RatingView.swift */,
+				BCCE4D2E23832F2E00F68DEB /* EmojiRatingView.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -151,8 +168,11 @@
 			files = (
 				BC63D6DB237E7655000A3A38 /* AppDelegate.swift in Sources */,
 				BC63D6E0237E7655000A3A38 /* Bookworm.xcdatamodeld in Sources */,
+				BCCE4D2F23832F2E00F68DEB /* EmojiRatingView.swift in Sources */,
 				BC63D6E2237E7655000A3A38 /* ContentView.swift in Sources */,
+				BCCE4D2D23832DA500F68DEB /* RatingView.swift in Sources */,
 				BC63D6DD237E7655000A3A38 /* SceneDelegate.swift in Sources */,
+				BCCE4D2B2383245600F68DEB /* AddBookView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
