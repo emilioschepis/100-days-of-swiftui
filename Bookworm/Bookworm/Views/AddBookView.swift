@@ -19,6 +19,10 @@ struct AddBookView: View {
     
     let genres = ["Fantasy", "Horror", "Kids", "Mystery", "Poetry", "Romance", "Thriller"]
     
+    var isValidForm: Bool {
+        return !genre.isEmpty
+    }
+    
     var body: some View {
         NavigationView {
             Form {
@@ -49,6 +53,7 @@ struct AddBookView: View {
                         try? self.moc.save()
                         self.presentationMode.wrappedValue.dismiss()
                     }
+                    .disabled(isValidForm == false)
                 }
             }
             .navigationBarTitle("Add a book")

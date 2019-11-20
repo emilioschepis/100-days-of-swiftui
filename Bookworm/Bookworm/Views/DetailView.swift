@@ -16,6 +16,13 @@ struct DetailView: View {
     
     let book: Book
     
+    var formatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .none
+        return formatter
+    }()
+    
     var body: some View {
         GeometryReader { geo in
             VStack {
@@ -36,9 +43,14 @@ struct DetailView: View {
                 Text(self.book.author ?? "Unknown author")
                     .font(.title)
                     .foregroundColor(.secondary)
+                
+                Text(self.formatter.string(from: self.book.date ?? Date()))
+                    .font(.subheadline)
 
                 Text(self.book.review ?? "No review")
                     .padding()
+                
+                
 
                 RatingView(rating: .constant(Int(self.book.rating)))
                     .font(.largeTitle)
