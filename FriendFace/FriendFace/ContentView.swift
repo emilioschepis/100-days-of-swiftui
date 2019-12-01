@@ -9,18 +9,15 @@
 import SwiftUI
 
 struct ContentView: View {
-    @EnvironmentObject var usersObservable: UsersObservable
+    @FetchRequest(entity: User.entity(), sortDescriptors: [
+        NSSortDescriptor(key: "name", ascending: true)
+    ]) var users: FetchedResults<User>
+    @ObservedObject var viewModel = ContentViewModel()
     
     var body: some View {
         NavigationView {
-            Group {
-                if usersObservable.loading {
-                    Circle()
-                } else {
-                    List(usersObservable.users, rowContent: UserRowView.init)
-                }
-            }
-            .navigationBarTitle("FriendFace")
+            List(users, id: \.wrappedID, rowContent: UserRowView.init)
+                .navigationBarTitle("FriendFace")
         }
     }
 }

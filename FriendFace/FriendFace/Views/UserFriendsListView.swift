@@ -7,29 +7,35 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct UserFriendsListView: View {
-    @EnvironmentObject var usersObservable: UsersObservable
+    @Environment(\.managedObjectContext) var moc
     
-    let name: String
     let friends: [Friend]
     
-    func getFriendUser(friend: Friend) -> User? {
-        return usersObservable.users.first(where: { u in u.id == friend.id })
+    func getFriendUser(friend: Friend) -> User {
+        let request: NSFetchRequest = User.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", friend.wrappedID)
+        
+        guard let users = try? moc.fetch(request) else {
+            return User()
+        }
+        
+        return users.first ?? User()
     }
     
     var body: some View {
-        List(friends) { friend in
-            NavigationLink(destination: UserDetailView(user: self.getFriendUser(friend: friend)!)) {
-                Text(friend.name)
+        List(friends, id: \.wrappedID) { friend in
+            NavigationLink(destination: UserDetailView(user: self.getFriendUser(friend: friend))) {
+                UserRowView(user: self.getFriendUser(friend: friend))
             }
         }
-        .navigationBarTitle(Text("\(name)'s friends"), displayMode: .inline)
     }
 }
 
 struct UserFriendsListView_Previews: PreviewProvider {
     static var previews: some View {
-        UserFriendsListView(name: "Emilio", friends: [])
+        UserFriendsListView(friends: [])
     }
 }

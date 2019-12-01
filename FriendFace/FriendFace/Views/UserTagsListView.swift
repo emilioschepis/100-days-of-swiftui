@@ -1,5 +1,5 @@
 //
-//  UserTagsView.swift
+//  UserTagsListView.swift
 //  FriendFace
 //
 //  Created by Emilio Schepis on 01/12/2019.
@@ -8,24 +8,25 @@
 
 import SwiftUI
 
-struct UserTagsView: View {
+struct UserTagsListView: View {
     let tags: [String]
     
-    func generateRandomColor() -> Color {
-        return Color(red: Double.random(in: 0...1),
-                     green: Double.random(in: 0...1),
-                     blue: Double.random(in: 0...1))
+    func randomColor() -> Color {
+        let red = Double.random(in: 0...0.5)
+        let green = Double.random(in: 0...0.5)
+        let blue = Double.random(in: 0...0.5)
+        
+        return Color(red: red, green: green, blue: blue)
     }
     
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack {
                 ForEach(tags, id: \.self) { tag in
-                    Text(tag.uppercased())
-                        .font(.caption)
+                    Text(tag)
                         .padding(8)
                         .foregroundColor(.white)
-                        .background(self.generateRandomColor())
+                        .background(self.randomColor().opacity(0.75))
                         .clipShape(Capsule())
                 }
             }
@@ -33,8 +34,8 @@ struct UserTagsView: View {
     }
 }
 
-struct UserTagsView_Previews: PreviewProvider {
+struct UserTagsListView_Previews: PreviewProvider {
     static var previews: some View {
-        UserTagsView(tags: [])
+        UserTagsListView(tags: [])
     }
 }

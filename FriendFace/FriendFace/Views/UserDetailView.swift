@@ -9,81 +9,64 @@
 import SwiftUI
 
 struct UserDetailView: View {
-    @EnvironmentObject var usersObservable: UsersObservable
-    
     let user: User
     
     var firstName: String {
-        if let firstName = user.name.split(separator: " ").first {
-            return String(firstName)
-        }
-        
-        return user.name
-    }
-    
-    var friendsView: some View {
-        UserFriendsListView(name: self.firstName,
-                            friends: self.user.friends)
+        String(user.wrappedName.split(separator: " ").first ?? Substring())
     }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 12) {
-            Group {
-                Text("About me")
-                    .font(.headline)
-                Text(user.about)
-                    .foregroundColor(.secondary)
+        VStack(alignment: .leading, spacing: 16) {
+            VStack(alignment: .leading) {
+                Text("About \(firstName)").font(.headline)
+                Text(user.wrappedAbout)
             }
             
-            Group {
-                Text("Info")
-                    .font(.headline)
+            VStack(alignment: .leading) {
+                Text("Info").font(.headline)
                 HStack {
                     Image(systemName: "briefcase.fill")
                         .foregroundColor(.accentColor)
-                    Text("Works at \(user.company)")
+                    Text("Works at \(user.wrappedCompany)")
+                        .font(.subheadline)
                 }
+                
+                HStack {
+                    Image(systemName: "envelope.fill")
+                        .foregroundColor(.accentColor)
+                    Text(user.wrappedEmail)
+                        .font(.subheadline)
+                }
+                
                 HStack {
                     Image(systemName: "house.fill")
                         .foregroundColor(.accentColor)
-                    Text("\(user.address)")
+                    Text(user.wrappedAddress)
+                        .font(.subheadline)
                 }
             }
             
-            Group {
-                Text("Interests")
-                    .font(.headline)
-                UserTagsView(tags: user.tags)
+            VStack(alignment: .leading) {
+                Text("Interests").font(.headline)
+                UserTagsListView(tags: user.wrappedTags)
             }
             
             VStack(alignment: .leading, spacing: 8) {
-                Text("Friends")
-                    .font(.headline)
-                NavigationLink(destination: friendsView) {
-                    Text("\(firstName) has \(user.friends.count) friends.")
+                Text("Friends").font(.headline)
+                NavigationLink(destination: UserFriendsListView(friends: user.wrappedFriends)) {
+                    Text("\(firstName) has \(user.wrappedFriends.count) friends")
                 }
             }
             
             Spacer()
         }
         .padding()
-        .navigationBarTitle(Text(user.name), displayMode: .inline)
+        .navigationBarTitle(Text(user.wrappedName), displayMode: .inline)
     }
 }
 
 struct UserDetailView_Previews: PreviewProvider {
-    static let user = User(id: UUID().uuidString,
-                           isActive: true,
-                           name: "Emilio Schepis",
-                           age: 23,
-                           company: "ES",
-                           address: "My address",
-                           about: "I'm doing the 100 days of SwiftUI",
-                           registered: Date(),
-                           tags: [],
-                           friends: [])
-    
     static var previews: some View {
-        UserDetailView(user: user)
+        UserDetailView(user: User())
     }
 }
