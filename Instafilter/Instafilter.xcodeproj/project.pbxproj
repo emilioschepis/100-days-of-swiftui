@@ -14,6 +14,7 @@
 		BC747D1B23959794005712AE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC747D1A23959794005712AE /* Preview Assets.xcassets */; };
 		BC747D1E23959794005712AE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC747D1C23959794005712AE /* LaunchScreen.storyboard */; };
 		BCB9D0092398CF23007EE8A2 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9D0082398CF23007EE8A2 /* ImagePicker.swift */; };
+		BCB9D00B2398D5BD007EE8A2 /* ImageSaver.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB9D00A2398D5BD007EE8A2 /* ImageSaver.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		BC747D1D23959794005712AE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BC747D1F23959794005712AE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BCB9D0082398CF23007EE8A2 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
+		BCB9D00A2398D5BD007EE8A2 /* ImageSaver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSaver.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +63,7 @@
 				BC747D1123959792005712AE /* AppDelegate.swift */,
 				BC747D1323959792005712AE /* SceneDelegate.swift */,
 				BC747D1523959792005712AE /* ContentView.swift */,
+				BCB9D00A2398D5BD007EE8A2 /* ImageSaver.swift */,
 				BC747D1723959794005712AE /* Assets.xcassets */,
 				BC747D1C23959794005712AE /* LaunchScreen.storyboard */,
 				BC747D1F23959794005712AE /* Info.plist */,
@@ -151,6 +154,7 @@
 			files = (
 				BC747D1223959792005712AE /* AppDelegate.swift in Sources */,
 				BCB9D0092398CF23007EE8A2 /* ImagePicker.swift in Sources */,
+				BCB9D00B2398D5BD007EE8A2 /* ImageSaver.swift in Sources */,
 				BC747D1423959792005712AE /* SceneDelegate.swift in Sources */,
 				BC747D1623959792005712AE /* ContentView.swift in Sources */,
 			);
