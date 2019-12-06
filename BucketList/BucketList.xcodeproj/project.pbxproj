@@ -18,6 +18,7 @@
 		BCED50FE239A584C004835AE /* MKPointAnnotation+ObservableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCED50FD239A584C004835AE /* MKPointAnnotation+ObservableObject.swift */; };
 		BCED5100239A5894004835AE /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCED50FF239A5894004835AE /* EditView.swift */; };
 		BCED5102239A598A004835AE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCED5101239A598A004835AE /* Result.swift */; };
+		BCED5106239A5BF8004835AE /* CodableMKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCED5105239A5BF8004835AE /* CodableMKPointAnnotation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		BCED50FD239A584C004835AE /* MKPointAnnotation+ObservableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MKPointAnnotation+ObservableObject.swift"; sourceTree = "<group>"; };
 		BCED50FF239A5894004835AE /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		BCED5101239A598A004835AE /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		BCED5105239A5BF8004835AE /* CodableMKPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableMKPointAnnotation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				BCED50F9239A4BEE004835AE /* FileManager+String.swift */,
 				BCED50FB239A4D71004835AE /* MapView.swift */,
 				BCED50FD239A584C004835AE /* MKPointAnnotation+ObservableObject.swift */,
+				BCED5105239A5BF8004835AE /* CodableMKPointAnnotation.swift */,
 				BCED50FF239A5894004835AE /* EditView.swift */,
 				BCED5101239A598A004835AE /* Result.swift */,
 			);
@@ -165,6 +168,7 @@
 				BC09A1F0239A4362000BA6AB /* AppDelegate.swift in Sources */,
 				BCED50FC239A4D71004835AE /* MapView.swift in Sources */,
 				BC09A1F2239A4362000BA6AB /* SceneDelegate.swift in Sources */,
+				BCED5106239A5BF8004835AE /* CodableMKPointAnnotation.swift in Sources */,
 				BCED5100239A5894004835AE /* EditView.swift in Sources */,
 				BC09A1F4239A4362000BA6AB /* ContentView.swift in Sources */,
 				BCED5102239A598A004835AE /* Result.swift in Sources */,

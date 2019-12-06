@@ -13,13 +13,14 @@ import MapKit
 struct ContentView: View {
     @State private var isUnlocked = false
     @State private var centerCoordinate = CLLocationCoordinate2D()
-    @State private var locations = [MKPointAnnotation]()
+    @State private var locations = [CodableMKPointAnnotation]()
     @State private var selectedPlace: MKPointAnnotation?
     @State private var showingPlaceDetails = false
     @State private var showingEditScreen = false
     
     var body: some View {
         ZStack {
+            if isUnlocked {
             MapView(centerCoordinate: $centerCoordinate, selectedPlace: $selectedPlace, showingPlaceDetails: $showingPlaceDetails, annotations: locations)
                 .edgesIgnoringSafeArea(.all)
             Circle()
@@ -31,9 +32,10 @@ struct ContentView: View {
                 HStack {
                     Spacer()
                     Button(action: {
-                        let newLocation = MKPointAnnotation()
+                        let newLocation = CodableMKPointAnnotation()
                         newLocation.coordinate = self.centerCoordinate
                         newLocation.title = "Example location"
+                        newLocation.subtitle = "Example description"
                         self.locations.append(newLocation)
                         self.selectedPlace = newLocation
                         self.showingEditScreen = true
@@ -48,7 +50,19 @@ struct ContentView: View {
                     .padding(.trailing)
                 }
             }
+            } else {
+                Button(action: self.authenticate) {
+                    VStack {
+                        Image(systemName: "lock.fill")
+                        Text("Unlock places with FaceID")
+                    }
+                }
+            }
         }
+        .onAppear(perform: {
+            self.loadData()
+            self.authenticate()
+        })
         .alert(isPresented: $showingPlaceDetails) {
             Alert(title: Text(selectedPlace?.title ?? "Unknown"),
                   message: Text(selectedPlace?.subtitle ?? "Missing place information."),
@@ -57,7 +71,7 @@ struct ContentView: View {
                     self.showingEditScreen = true
             })
         }
-        .sheet(isPresented: $showingEditScreen) {
+        .sheet(isPresented: $showingEditScreen, onDismiss: saveData) {
             if self.selectedPlace != nil {
                 EditView(placemark: self.selectedPlace!)
             }
@@ -82,6 +96,32 @@ struct ContentView: View {
             }
         } else {
             
+        }
+    }
+    
+    func getDocumentsDirectory() -> URL {
+        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+        return paths[0]
+    }
+    
+    func loadData() {
+        let fileName = getDocumentsDirectory().appendingPathComponent("SavedPlaces")
+
+        do {
+            let data = try Data(contentsOf: fileName)
+            locations = try JSONDecoder().decode([CodableMKPointAnnotation].self, from: data)
+        } catch {
+            print("Unable to load saved data.")
+        }
+    }
+    
+    func saveData() {
+        do {
+            let fileName = getDocumentsDirectory().appendingPathComponent("SavedPlaces")
+            let data = try JSONEncoder().encode(self.locations)
+            try data.write(to: fileName, options: [.atomicWrite, .completeFileProtection])
+        } catch {
+            print("Unable to save data.")
         }
     }
 }
