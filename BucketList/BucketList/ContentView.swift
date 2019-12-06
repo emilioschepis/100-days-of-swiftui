@@ -7,65 +7,46 @@
 //
 
 import SwiftUI
-
-enum LoadingState {
-    case loading, success, failed
-}
-
-struct User: Identifiable, Comparable {
-    let id = UUID()
-    let firstName: String
-    let lastName: String
-
-    static func < (lhs: User, rhs: User) -> Bool {
-        lhs.lastName < rhs.lastName
-    }
-}
+import LocalAuthentication
 
 struct ContentView: View {
-    let users = [
-        User(firstName: "Arnold", lastName: "Rimmer"),
-        User(firstName: "Kristine", lastName: "Kochanski"),
-        User(firstName: "David", lastName: "Lister"),
-    ].sorted()
+    @State private var isUnlocked = false
     
-    struct LoadingView: View {
-        var body: some View {
-            Text("Loading...")
-        }
-    }
-
-    struct SuccessView: View {
-        var body: some View {
-            Text("Success!")
-        }
-    }
-
-    struct FailedView: View {
-        var body: some View {
-            Text("Failed.")
-        }
-    }
-    
-    var loadingState = LoadingState.loading
-
     var body: some View {
-        Group {
-            if loadingState == .loading {
-                LoadingView()
-            } else if loadingState == .success {
-                SuccessView()
-            } else if loadingState == .failed {
-                FailedView()
+        VStack {
+            Group {
+                if isUnlocked {
+                    MapView()
+                    .edgesIgnoringSafeArea(.all)
+                } else {
+                    Image(systemName: "lock.fill")
+                    Button("Authenticate", action: authenticate)
+                }
             }
         }
+    .onAppear(perform: authenticate)
     }
     
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        return paths[0]
+    func authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "We need to unlock your data."
+            
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
+                DispatchQueue.main.async {
+                    if success {
+                        self.isUnlocked = true
+                    } else {
+                        
+                    }
+                }
+            }
+        } else {
+            
+        }
     }
-    
 }
 
 struct ContentView_Previews: PreviewProvider {
