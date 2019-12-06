@@ -10,6 +10,10 @@ import SwiftUI
 import LocalAuthentication
 import MapKit
 
+enum BiometricError: Error {
+    case notAvailable, notRecognized, unknown
+}
+
 struct ContentView: View {
     @State private var isUnlocked = false
     @State private var centerCoordinate = CLLocationCoordinate2D()
@@ -17,39 +21,17 @@ struct ContentView: View {
     @State private var selectedPlace: MKPointAnnotation?
     @State private var showingPlaceDetails = false
     @State private var showingEditScreen = false
+    @State private var showingBiometricError = false
+    @State private var biometricError = BiometricError.unknown
     
     var body: some View {
         ZStack {
             if isUnlocked {
-            MapView(centerCoordinate: $centerCoordinate, selectedPlace: $selectedPlace, showingPlaceDetails: $showingPlaceDetails, annotations: locations)
-                .edgesIgnoringSafeArea(.all)
-            Circle()
-                .fill(Color.blue)
-                .opacity(0.3)
-                .frame(width: 32, height: 32)
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    Button(action: {
-                        let newLocation = CodableMKPointAnnotation()
-                        newLocation.coordinate = self.centerCoordinate
-                        newLocation.title = "Example location"
-                        newLocation.subtitle = "Example description"
-                        self.locations.append(newLocation)
-                        self.selectedPlace = newLocation
-                        self.showingEditScreen = true
-                    }) {
-                        Image(systemName: "plus")
-                    }
-                    .padding()
-                    .background(Color.black.opacity(0.75))
-                    .foregroundColor(.white)
-                    .font(.title)
-                    .clipShape(Circle())
-                    .padding(.trailing)
-                }
-            }
+                UnlockedView(centerCoordinate: $centerCoordinate,
+                             locations: $locations,
+                             selectedPlace: $selectedPlace,
+                             showingPlaceDetails: $showingPlaceDetails,
+                             showingEditScreen: $showingEditScreen)
             } else {
                 Button(action: self.authenticate) {
                     VStack {
@@ -57,6 +39,21 @@ struct ContentView: View {
                         Text("Unlock places with FaceID")
                     }
                 }
+                .alert(isPresented: $showingBiometricError) {
+                    let errorMessage: String
+                    
+                    switch biometricError {
+                    case .notAvailable:
+                        errorMessage = "Biometric security is not available."
+                    case .notRecognized:
+                        errorMessage = "Sorry, FaceID could not recognize you."
+                    case .unknown:
+                        errorMessage = "Unknown biometric error."
+                    }
+                    
+                    return Alert(title: Text("Biometric error"), message: Text(errorMessage), dismissButton: .cancel())
+                }
+                
             }
         }
         .onAppear(perform: {
@@ -90,12 +87,14 @@ struct ContentView: View {
                     if success {
                         self.isUnlocked = true
                     } else {
-                        
+                        self.biometricError = .notRecognized
+                        self.showingBiometricError = true
                     }
                 }
             }
         } else {
-            
+            self.biometricError = .notAvailable
+            self.showingBiometricError = true
         }
     }
     

@@ -19,6 +19,7 @@
 		BCED5100239A5894004835AE /* EditView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCED50FF239A5894004835AE /* EditView.swift */; };
 		BCED5102239A598A004835AE /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCED5101239A598A004835AE /* Result.swift */; };
 		BCED5106239A5BF8004835AE /* CodableMKPointAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCED5105239A5BF8004835AE /* CodableMKPointAnnotation.swift */; };
+		BCED5108239A6512004835AE /* UnlockedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCED5107239A6512004835AE /* UnlockedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		BCED50FF239A5894004835AE /* EditView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditView.swift; sourceTree = "<group>"; };
 		BCED5101239A598A004835AE /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		BCED5105239A5BF8004835AE /* CodableMKPointAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CodableMKPointAnnotation.swift; sourceTree = "<group>"; };
+		BCED5107239A6512004835AE /* UnlockedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UnlockedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +80,7 @@
 				BCED50F9239A4BEE004835AE /* FileManager+String.swift */,
 				BCED50FB239A4D71004835AE /* MapView.swift */,
 				BCED50FD239A584C004835AE /* MKPointAnnotation+ObservableObject.swift */,
+				BCED5107239A6512004835AE /* UnlockedView.swift */,
 				BCED5105239A5BF8004835AE /* CodableMKPointAnnotation.swift */,
 				BCED50FF239A5894004835AE /* EditView.swift */,
 				BCED5101239A598A004835AE /* Result.swift */,
@@ -169,6 +172,7 @@
 				BCED50FC239A4D71004835AE /* MapView.swift in Sources */,
 				BC09A1F2239A4362000BA6AB /* SceneDelegate.swift in Sources */,
 				BCED5106239A5BF8004835AE /* CodableMKPointAnnotation.swift in Sources */,
+				BCED5108239A6512004835AE /* UnlockedView.swift in Sources */,
 				BCED5100239A5894004835AE /* EditView.swift in Sources */,
 				BC09A1F4239A4362000BA6AB /* ContentView.swift in Sources */,
 				BCED5102239A598A004835AE /* Result.swift in Sources */,
