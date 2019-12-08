@@ -15,12 +15,13 @@ struct CrewMemberView: View {
     var body: some View {
         HStack(spacing: 16) {
             Image(self.astronaut.id)
-                 .resizable()
-                    .scaledToFill()
-                 .frame(width: 60, height: 60)
-                 .clipShape(Circle())
-                 .overlay(Circle().stroke(self.role == "Commander" ? Color.yellow : Color.primary, lineWidth: 2))
-                 .shadow(color: self.role == "Commander" ? .yellow : .primary, radius: 8)
+                .resizable()
+                .scaledToFill()
+                .frame(width: 60, height: 60)
+                .clipShape(Circle())
+                .overlay(Circle().stroke(self.role == "Commander" ? Color.yellow : Color.primary, lineWidth: 2))
+                .shadow(color: self.role == "Commander" ? .yellow : .primary, radius: 8)
+                .accessibility(label: Text("\(astronaut.name)'s portrait"))
             
             VStack(alignment: .leading) {
                 Text(astronaut.name)
