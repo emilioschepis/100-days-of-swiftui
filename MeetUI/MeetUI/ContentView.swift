@@ -8,6 +8,7 @@
 
 import SwiftUI
 import CoreData
+import CoreLocation
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) var moc
@@ -17,6 +18,8 @@ struct ContentView: View {
     @State private var showingImagePicker = false
     @State private var showingPersonForm = false
     @State private var inputImage: UIImage?
+    
+    let locationFetcher = LocationFetcher()
     
     var addButton: some View {
         Button(action: {
@@ -39,9 +42,10 @@ struct ContentView: View {
             .navigationBarItems(leading: EditButton(), trailing: addButton)
             .sheet(isPresented: $showingPersonForm) {
                 // Safe because we guard let?
-                PersonFormView(inputImage: self.inputImage!)
+                PersonFormView(inputImage: self.inputImage!, location: self.locationFetcher.lastKnownLocation)
                     .environment(\.managedObjectContext, self.moc)
             }
+            .onAppear(perform: startFetchingLocation)
         }
     }
     
@@ -57,6 +61,10 @@ struct ContentView: View {
         guard inputImage != nil else { return }
         
         showingPersonForm = true
+    }
+    
+    func startFetchingLocation() {
+        locationFetcher.start()
     }
 }
 

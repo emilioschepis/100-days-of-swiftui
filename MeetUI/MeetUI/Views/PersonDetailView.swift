@@ -7,11 +7,17 @@
 //
 
 import SwiftUI
+import CoreLocation
 
 struct PersonDetailView: View {
     @State private var image: Image?
+    @State private var showing = 0
     
     let person: Person
+    
+    var personLocation: CLLocationCoordinate2D {
+        .init(latitude: person.latitude, longitude: person.longitude)
+    }
     
     func loadImage() {
         FileManager.default.readImage(from: person.wrappedID.uuidString) { (image, error) in
@@ -24,11 +30,34 @@ struct PersonDetailView: View {
     }
     
     var body: some View {
-        VStack {
-            image?
-                .resizable()
-                .scaledToFit()
-            Spacer()
+        ScrollView {
+            Picker(selection: $showing, label: Text("")) {
+                Text("Photo").tag(0)
+                Text("Location").tag(1)
+                Text("Info").tag(2)
+            }.pickerStyle(SegmentedPickerStyle())
+            
+            VStack(spacing: 16) {
+                if showing == 0 {
+                        Text("A photo of \(person.wrappedName).")
+                            .font(.caption)
+                        
+                        image?
+                            .resizable()
+                            .scaledToFit()
+                } else if showing == 1 {
+                        Text("You and \(person.wrappedName) met here.")
+                            .font(.caption)
+                        
+                        MapView(location: personLocation)
+                            .frame(height: 300)
+                } else if showing == 2 {
+                        Text("Some info about \(person.wrappedName).")
+                            .font(.caption)
+                        
+                        Text(person.wrappedInfo)
+                }
+            }.padding()
         }
         .navigationBarTitle(person.wrappedName)
         .onAppear(perform: loadImage)

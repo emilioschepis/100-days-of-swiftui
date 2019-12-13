@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		BC469CA123A3FCB5001046A3 /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC469CA023A3FCB5001046A3 /* Person+CoreDataProperties.swift */; };
 		BC9A8BDC239ED832007012F5 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9A8BDB239ED832007012F5 /* AppDelegate.swift */; };
 		BC9A8BDE239ED832007012F5 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9A8BDD239ED832007012F5 /* SceneDelegate.swift */; };
 		BC9A8BE1239ED832007012F5 /* MeetUI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = BC9A8BDF239ED832007012F5 /* MeetUI.xcdatamodeld */; };
@@ -16,14 +17,16 @@
 		BC9A8BEB239ED834007012F5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC9A8BE9239ED834007012F5 /* LaunchScreen.storyboard */; };
 		BC9A8BF3239ED85D007012F5 /* ImagePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9A8BF2239ED85D007012F5 /* ImagePicker.swift */; };
 		BC9A8BF8239EDA2A007012F5 /* Person+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9A8BF6239EDA2A007012F5 /* Person+CoreDataClass.swift */; };
-		BC9A8BF9239EDA2A007012F5 /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9A8BF7239EDA2A007012F5 /* Person+CoreDataProperties.swift */; };
 		BC9A8BFB239EDCDE007012F5 /* PersonRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9A8BFA239EDCDE007012F5 /* PersonRowView.swift */; };
 		BC9A8BFF239EE2F7007012F5 /* PersonFormView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9A8BFE239EE2F7007012F5 /* PersonFormView.swift */; };
 		BC9A8C02239EE5B0007012F5 /* FileManager+UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9A8C01239EE5B0007012F5 /* FileManager+UIImage.swift */; };
 		BC9A8C04239EEA0B007012F5 /* PersonDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC9A8C03239EEA0B007012F5 /* PersonDetailView.swift */; };
+		BCB2ED0A239F7275000AA3D5 /* LocationFetcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2ED09239F7275000AA3D5 /* LocationFetcher.swift */; };
+		BCB2ED10239F7526000AA3D5 /* MapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCB2ED0F239F7526000AA3D5 /* MapView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		BC469CA023A3FCB5001046A3 /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BC9A8BD8239ED832007012F5 /* MeetUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeetUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BC9A8BDB239ED832007012F5 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		BC9A8BDD239ED832007012F5 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -35,11 +38,12 @@
 		BC9A8BEC239ED834007012F5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		BC9A8BF2239ED85D007012F5 /* ImagePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePicker.swift; sourceTree = "<group>"; };
 		BC9A8BF6239EDA2A007012F5 /* Person+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataClass.swift"; sourceTree = "<group>"; };
-		BC9A8BF7239EDA2A007012F5 /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		BC9A8BFA239EDCDE007012F5 /* PersonRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonRowView.swift; sourceTree = "<group>"; };
 		BC9A8BFE239EE2F7007012F5 /* PersonFormView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonFormView.swift; sourceTree = "<group>"; };
 		BC9A8C01239EE5B0007012F5 /* FileManager+UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FileManager+UIImage.swift"; sourceTree = "<group>"; };
 		BC9A8C03239EEA0B007012F5 /* PersonDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonDetailView.swift; sourceTree = "<group>"; };
+		BCB2ED09239F7275000AA3D5 /* LocationFetcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationFetcher.swift; sourceTree = "<group>"; };
+		BCB2ED0F239F7526000AA3D5 /* MapView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -98,8 +102,8 @@
 		BC9A8BF4239EDA12007012F5 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				BC469CA023A3FCB5001046A3 /* Person+CoreDataProperties.swift */,
 				BC9A8BF6239EDA2A007012F5 /* Person+CoreDataClass.swift */,
-				BC9A8BF7239EDA2A007012F5 /* Person+CoreDataProperties.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -111,6 +115,7 @@
 				BC9A8BFA239EDCDE007012F5 /* PersonRowView.swift */,
 				BC9A8BFE239EE2F7007012F5 /* PersonFormView.swift */,
 				BC9A8C03239EEA0B007012F5 /* PersonDetailView.swift */,
+				BCB2ED0F239F7526000AA3D5 /* MapView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -119,6 +124,7 @@
 			isa = PBXGroup;
 			children = (
 				BC9A8C01239EE5B0007012F5 /* FileManager+UIImage.swift */,
+				BCB2ED09239F7275000AA3D5 /* LocationFetcher.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -196,13 +202,15 @@
 			files = (
 				BC9A8BFB239EDCDE007012F5 /* PersonRowView.swift in Sources */,
 				BC9A8BFF239EE2F7007012F5 /* PersonFormView.swift in Sources */,
-				BC9A8BF9239EDA2A007012F5 /* Person+CoreDataProperties.swift in Sources */,
+				BCB2ED0A239F7275000AA3D5 /* LocationFetcher.swift in Sources */,
 				BC9A8BDC239ED832007012F5 /* AppDelegate.swift in Sources */,
+				BCB2ED10239F7526000AA3D5 /* MapView.swift in Sources */,
 				BC9A8BE1239ED832007012F5 /* MeetUI.xcdatamodeld in Sources */,
 				BC9A8C02239EE5B0007012F5 /* FileManager+UIImage.swift in Sources */,
 				BC9A8BF8239EDA2A007012F5 /* Person+CoreDataClass.swift in Sources */,
 				BC9A8BF3239ED85D007012F5 /* ImagePicker.swift in Sources */,
 				BC9A8BE3239ED832007012F5 /* ContentView.swift in Sources */,
+				BC469CA123A3FCB5001046A3 /* Person+CoreDataProperties.swift in Sources */,
 				BC9A8C04239EEA0B007012F5 /* PersonDetailView.swift in Sources */,
 				BC9A8BDE239ED832007012F5 /* SceneDelegate.swift in Sources */,
 			);
@@ -342,6 +350,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MeetUI/Preview Content\"";
+				DEVELOPMENT_TEAM = 9K45CQJ2EB;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MeetUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -361,6 +370,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"MeetUI/Preview Content\"";
+				DEVELOPMENT_TEAM = 9K45CQJ2EB;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = MeetUI/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
