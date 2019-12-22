@@ -17,7 +17,7 @@
 		BC91816023AF98B100143648 /* ProspectsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91815F23AF98B100143648 /* ProspectsView.swift */; };
 		BC91816223AF98CB00143648 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91816123AF98CB00143648 /* MeView.swift */; };
 		BC91816823AF9A6700143648 /* Prospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91816723AF9A6700143648 /* Prospect.swift */; };
-		BC91816A23AF9A7C00143648 /* Prospects.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91816923AF9A7C00143648 /* Prospects.swift */; };
+		BC91816D23AFAA2100143648 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = BC91816C23AFAA2100143648 /* CodeScanner */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,7 +32,6 @@
 		BC91815F23AF98B100143648 /* ProspectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectsView.swift; sourceTree = "<group>"; };
 		BC91816123AF98CB00143648 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		BC91816723AF9A6700143648 /* Prospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospect.swift; sourceTree = "<group>"; };
-		BC91816923AF9A7C00143648 /* Prospects.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospects.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -40,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC91816D23AFAA2100143648 /* CodeScanner in Frameworks */,
 				BC91815E23AF97A900143648 /* SamplePackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,7 +76,6 @@
 				BC91815423AF867000143648 /* Info.plist */,
 				BC91814E23AF867000143648 /* Preview Content */,
 				BC91816723AF9A6700143648 /* Prospect.swift */,
-				BC91816923AF9A7C00143648 /* Prospects.swift */,
 			);
 			path = HotProspects;
 			sourceTree = "<group>";
@@ -107,6 +106,7 @@
 			name = HotProspects;
 			packageProductDependencies = (
 				BC91815D23AF97A900143648 /* SamplePackage */,
+				BC91816C23AFAA2100143648 /* CodeScanner */,
 			);
 			productName = HotProspects;
 			productReference = BC91814323AF866E00143648 /* HotProspects.app */;
@@ -138,6 +138,7 @@
 			mainGroup = BC91813A23AF866E00143648;
 			packageReferences = (
 				BC91815C23AF97A900143648 /* XCRemoteSwiftPackageReference "SamplePackage" */,
+				BC91816B23AFAA2100143648 /* XCRemoteSwiftPackageReference "CodeScanner" */,
 			);
 			productRefGroup = BC91814423AF866E00143648 /* Products */;
 			projectDirPath = "";
@@ -166,7 +167,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BC91816A23AF9A7C00143648 /* Prospects.swift in Sources */,
 				BC91816023AF98B100143648 /* ProspectsView.swift in Sources */,
 				BC91814723AF866E00143648 /* AppDelegate.swift in Sources */,
 				BC91816823AF9A6700143648 /* Prospect.swift in Sources */,
@@ -376,6 +376,14 @@
 				minimumVersion = 1.0.0;
 			};
 		};
+		BC91816B23AFAA2100143648 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -383,6 +391,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = BC91815C23AF97A900143648 /* XCRemoteSwiftPackageReference "SamplePackage" */;
 			productName = SamplePackage;
+		};
+		BC91816C23AFAA2100143648 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC91816B23AFAA2100143648 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
