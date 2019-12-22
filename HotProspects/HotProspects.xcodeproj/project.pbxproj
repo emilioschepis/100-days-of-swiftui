@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,7 @@
 		BC91815023AF867000143648 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BC91814F23AF867000143648 /* Preview Assets.xcassets */; };
 		BC91815323AF867000143648 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BC91815123AF867000143648 /* LaunchScreen.storyboard */; };
 		BC91815B23AF8D3C00143648 /* DelayedUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91815A23AF8D3C00143648 /* DelayedUpdater.swift */; };
+		BC91815E23AF97A900143648 /* SamplePackage in Frameworks */ = {isa = PBXBuildFile; productRef = BC91815D23AF97A900143648 /* SamplePackage */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BC91815E23AF97A900143648 /* SamplePackage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -94,6 +96,9 @@
 			dependencies = (
 			);
 			name = HotProspects;
+			packageProductDependencies = (
+				BC91815D23AF97A900143648 /* SamplePackage */,
+			);
 			productName = HotProspects;
 			productReference = BC91814323AF866E00143648 /* HotProspects.app */;
 			productType = "com.apple.product-type.application";
@@ -122,6 +127,9 @@
 				Base,
 			);
 			mainGroup = BC91813A23AF866E00143648;
+			packageReferences = (
+				BC91815C23AF97A900143648 /* XCRemoteSwiftPackageReference "SamplePackage" */,
+			);
 			productRefGroup = BC91814423AF866E00143648 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -346,6 +354,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		BC91815C23AF97A900143648 /* XCRemoteSwiftPackageReference "SamplePackage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/SamplePackage";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		BC91815D23AF97A900143648 /* SamplePackage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = BC91815C23AF97A900143648 /* XCRemoteSwiftPackageReference "SamplePackage" */;
+			productName = SamplePackage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = BC91813B23AF866E00143648 /* Project object */;
 }
