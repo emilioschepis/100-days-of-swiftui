@@ -14,12 +14,18 @@ enum FilterType {
     case none, contacted, uncontacted
 }
 
+enum SortType {
+    case name, date
+}
+
 struct ProspectsView: View {
     @EnvironmentObject var prospects: Prospects
     @State private var isShowingScanner = false
+    @State private var isShowingSortSheet = false
+    @State private var sort = SortType.name
     
     let filter: FilterType
-    
+        
     var title: String {
         switch filter {
         case .none:
@@ -39,6 +45,32 @@ struct ProspectsView: View {
             return prospects.people.filter { $0.isContacted }
         case .uncontacted:
             return prospects.people.filter { !$0.isContacted }
+        }
+    }
+    
+    var sortedProspect: [Prospect] {
+        switch sort {
+        case .name:
+            return filteredProspects.sorted(by: { $0.name < $1.name })
+        case .date:
+            return filteredProspects.sorted(by: { $0.added < $1.added })
+        }
+    }
+
+    var scanButton: some View {
+        Button(action: {
+            self.isShowingScanner = true
+        }) {
+            Image(systemName: "qrcode.viewfinder")
+            Text("Scan")
+        }
+    }
+    
+    var sortButton: some View {
+        Button(action: {
+            self.isShowingSortSheet = true
+        }) {
+            Image(systemName: "arrow.up.arrow.down")
         }
     }
     
@@ -97,12 +129,19 @@ struct ProspectsView: View {
     var body: some View {
         NavigationView {
             List {
-                ForEach(filteredProspects) { prospect in
-                    VStack(alignment: .leading) {
-                        Text(prospect.name)
-                            .font(.headline)
-                        Text(prospect.emailAddress)
-                            .foregroundColor(.secondary)
+                ForEach(sortedProspect) { prospect in
+                    HStack {
+                        if self.filter == .none {
+                            Image(systemName: prospect.isContacted
+                                ? "checkmark.circle"
+                                : "questionmark.diamond")
+                        }
+                        VStack(alignment: .leading) {
+                            Text(prospect.name)
+                                .font(.headline)
+                            Text(prospect.emailAddress)
+                                .foregroundColor(.secondary)
+                        }
                     }
                     .contextMenu {
                         Button(prospect.isContacted ? "Mark uncontacted" : "Mark contacted") {
@@ -116,15 +155,23 @@ struct ProspectsView: View {
                     }
                 }
             }
-                .navigationBarTitle(title)
-                .navigationBarItems(trailing: Button(action: {
-                    self.isShowingScanner = true
-                }) {
-                    Image(systemName: "qrcode.viewfinder")
-                    Text("Scan")
-                })
-                .sheet(isPresented: $isShowingScanner) {
-                    CodeScannerView(codeTypes: [.qr], simulatedData: "Paul Hudson\npaul@hackingwithswift.com", completion: self.handleScan)
+            .navigationBarTitle(title)
+            .navigationBarItems(leading: sortButton, trailing: scanButton)
+            .sheet(isPresented: $isShowingScanner) {
+                CodeScannerView(codeTypes: [.qr],
+                                simulatedData: "Paul Hudson \(Int.random(in: 1...100))\npaul@hackingwithswift.com",
+                                completion: self.handleScan)
+            }
+            .actionSheet(isPresented: $isShowingSortSheet) {
+                ActionSheet(title: Text("Sort"), buttons: [
+                    ActionSheet.Button.default(Text("By name"), action: {
+                        self.sort = .name
+                    }),
+                    ActionSheet.Button.default(Text("By date"), action: {
+                        self.sort = .date
+                    }),
+                    ActionSheet.Button.cancel()
+                ])
             }
         }
     }

@@ -18,6 +18,7 @@
 		BC91816223AF98CB00143648 /* MeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91816123AF98CB00143648 /* MeView.swift */; };
 		BC91816823AF9A6700143648 /* Prospect.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91816723AF9A6700143648 /* Prospect.swift */; };
 		BC91816D23AFAA2100143648 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = BC91816C23AFAA2100143648 /* CodeScanner */; };
+		BC91816F23AFB00F00143648 /* FileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BC91816E23AFB00F00143648 /* FileManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +33,7 @@
 		BC91815F23AF98B100143648 /* ProspectsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProspectsView.swift; sourceTree = "<group>"; };
 		BC91816123AF98CB00143648 /* MeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeView.swift; sourceTree = "<group>"; };
 		BC91816723AF9A6700143648 /* Prospect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Prospect.swift; sourceTree = "<group>"; };
+		BC91816E23AFB00F00143648 /* FileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -76,6 +78,7 @@
 				BC91815423AF867000143648 /* Info.plist */,
 				BC91814E23AF867000143648 /* Preview Content */,
 				BC91816723AF9A6700143648 /* Prospect.swift */,
+				BC91816E23AFB00F00143648 /* FileManager.swift */,
 			);
 			path = HotProspects;
 			sourceTree = "<group>";
@@ -170,6 +173,7 @@
 				BC91816023AF98B100143648 /* ProspectsView.swift in Sources */,
 				BC91814723AF866E00143648 /* AppDelegate.swift in Sources */,
 				BC91816823AF9A6700143648 /* Prospect.swift in Sources */,
+				BC91816F23AFB00F00143648 /* FileManager.swift in Sources */,
 				BC91814923AF866E00143648 /* SceneDelegate.swift in Sources */,
 				BC91814B23AF866E00143648 /* ContentView.swift in Sources */,
 				BC91816223AF98CB00143648 /* MeView.swift in Sources */,
