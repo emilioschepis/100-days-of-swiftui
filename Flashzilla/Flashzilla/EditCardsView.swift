@@ -41,8 +41,8 @@ struct EditCardsView: View {
             .navigationBarItems(trailing: Button("Done", action: dismiss))
             .listStyle(GroupedListStyle())
             .onAppear(perform: loadData)
-            .navigationViewStyle(StackNavigationViewStyle())
         }
+        .navigationViewStyle(StackNavigationViewStyle())
     }
 
     func dismiss() {

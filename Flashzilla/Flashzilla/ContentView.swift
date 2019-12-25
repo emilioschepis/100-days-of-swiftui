@@ -14,15 +14,23 @@ struct ContentView: View {
     @State private var cards = [Card]()
     @State private var timeRemaining = 100
     @State private var isActive = true
+    @State private var retry = false
     @State private var showingEditScreen = false
+    @State private var showingSettingsScreen = false
     
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     
-    func removeCard(at index: Int) {
+    func removeCard(at index: Int, success: Bool) {
         guard index >= 0 else { return }
 
-        cards.remove(at: index)
+        let card = cards.remove(at: index)
         
+        if !success && retry {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                self.cards.insert(card, at: 0)
+            }
+        }
+                
         if cards.isEmpty {
             isActive = false
         }
@@ -50,32 +58,35 @@ struct ContentView: View {
 //                .edgesIgnoringSafeArea(.all)
             
             VStack {
-                Text("Time: \(timeRemaining)")
-                .font(.largeTitle)
-                .foregroundColor(.white)
-                .padding(.horizontal, 20)
-                .padding(.vertical, 5)
-                .background(
-                    Capsule()
-                        .fill(Color.black)
-                        .opacity(0.75)
-                )
-                
-                ZStack {
-                    ForEach(0..<cards.count, id: \.self) { index in
-                        CardView(card: self.cards[index]) {
-                            withAnimation {
-                                self.removeCard(at: index)
+                if timeRemaining > 0 {
+                    Text("Time: \(timeRemaining)")
+                    .font(.largeTitle)
+                    .foregroundColor(.white)
+                    .padding(.horizontal, 20)
+                    .padding(.vertical, 5)
+                    .background(
+                        Capsule()
+                            .fill(Color.black)
+                            .opacity(0.75)
+                    )
+                    
+                    ZStack {
+                        ForEach(0..<cards.count, id: \.self) { index in
+                            CardView(card: self.cards[index]) { success in
+                                withAnimation {
+                                    self.removeCard(at: index, success: success)
+                                }
                             }
+                            .allowsHitTesting(index == self.cards.count - 1)
+                            .accessibility(hidden: index < self.cards.count - 1)
+                            .stacked(at: index, in: self.cards.count)
                         }
-                        .allowsHitTesting(index == self.cards.count - 1)
-                        .accessibility(hidden: index < self.cards.count - 1)
-                        .stacked(at: index, in: self.cards.count)
                     }
+                } else {
+                    Text("Time is up!")
                 }
-                .allowsHitTesting(timeRemaining > 0)
                 
-                if cards.isEmpty {
+                if cards.isEmpty || timeRemaining <= 0 {
                     Button("Start Again", action: resetCards)
                         .padding()
                         .background(Color.white)
@@ -86,6 +97,18 @@ struct ContentView: View {
             
             VStack {
                 HStack {
+                    Button(action: {
+                        self.showingSettingsScreen = true
+                    }) {
+                        Image(systemName: "gear")
+                            .padding()
+                            .background(Color.black.opacity(0.7))
+                            .clipShape(Circle())
+                    }
+                    .sheet(isPresented: $showingSettingsScreen) {
+                        SettingsView(retry: self.$retry)
+                    }
+                    
                     Spacer()
 
                     Button(action: {
@@ -95,6 +118,9 @@ struct ContentView: View {
                             .padding()
                             .background(Color.black.opacity(0.7))
                             .clipShape(Circle())
+                    }
+                    .sheet(isPresented: $showingEditScreen, onDismiss: resetCards) {
+                        EditCardsView()
                     }
                 }
 
@@ -111,7 +137,7 @@ struct ContentView: View {
                     HStack {
                         Button(action: {
                             withAnimation {
-                                self.removeCard(at: self.cards.count - 1)
+                                self.removeCard(at: self.cards.count - 1, success: false)
                             }
                         }) {
                             Image(systemName: "xmark.circle")
@@ -125,7 +151,7 @@ struct ContentView: View {
 
                         Button(action: {
                             withAnimation {
-                                self.removeCard(at: self.cards.count - 1)
+                                self.removeCard(at: self.cards.count - 1, success: true)
                             }
                         }) {
                             Image(systemName: "checkmark.circle")
@@ -156,9 +182,6 @@ struct ContentView: View {
             if self.cards.isEmpty == false {
                 self.isActive = true
             }
-        }
-        .sheet(isPresented: $showingEditScreen, onDismiss: resetCards) {
-            EditCardsView()
         }
         .onAppear(perform: resetCards)
     }

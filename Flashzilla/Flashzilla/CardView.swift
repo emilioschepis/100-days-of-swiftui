@@ -16,7 +16,17 @@ struct CardView: View {
     @State private var offset = CGSize.zero
     
     let card: Card
-    var removal: (() -> Void)? = nil
+    var removal: ((Bool) -> Void)? = nil
+    
+    func fill(for offset: CGSize) -> Color {
+        if offset.width == 0 {
+            return .white
+        } else if offset.width > 0 {
+            return .green
+        } else {
+            return .red
+        }
+    }
     
     var body: some View {
         ZStack {
@@ -32,7 +42,7 @@ struct CardView: View {
                 differentiateWithoutColor
                     ? nil
                     : RoundedRectangle(cornerRadius: 25, style: .continuous)
-                        .fill(offset.width > 0 ? Color.green : Color.red)
+                        .fill(fill(for: offset))
             )
             .shadow(radius: 10)
             
@@ -67,7 +77,6 @@ struct CardView: View {
                     self.offset = gesture.translation
                     self.feedback.prepare()
                 }
-
                 .onEnded { _ in
                     if abs(self.offset.width) > 100 {
                         if self.offset.width > 0 {
@@ -75,7 +84,7 @@ struct CardView: View {
                         } else {
                             self.feedback.notificationOccurred(.error)
                         }
-                        self.removal?()
+                        self.removal?(self.offset.width > 0)
                     } else {
                         self.offset = .zero
                     }

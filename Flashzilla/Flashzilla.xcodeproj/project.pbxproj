@@ -16,6 +16,7 @@
 		BCA5C10B23B36C6400E15A6C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA5C10A23B36C6400E15A6C /* Card.swift */; };
 		BCA5C11123B36FFA00E15A6C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA5C11023B36FFA00E15A6C /* CardView.swift */; };
 		BCA5C11323B37A9100E15A6C /* EditCardsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA5C11223B37A9100E15A6C /* EditCardsView.swift */; };
+		BCA5C11723B3898400E15A6C /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA5C11623B3898400E15A6C /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		BCA5C10A23B36C6400E15A6C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		BCA5C11023B36FFA00E15A6C /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 		BCA5C11223B37A9100E15A6C /* EditCardsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditCardsView.swift; sourceTree = "<group>"; };
+		BCA5C11623B3898400E15A6C /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +66,7 @@
 			children = (
 				BCA5C10A23B36C6400E15A6C /* Card.swift */,
 				BCA5C0F623B3660000E15A6C /* AppDelegate.swift */,
+				BCA5C11623B3898400E15A6C /* SettingsView.swift */,
 				BCA5C0F823B3660000E15A6C /* SceneDelegate.swift */,
 				BCA5C0FA23B3660000E15A6C /* ContentView.swift */,
 				BCA5C11223B37A9100E15A6C /* EditCardsView.swift */,
@@ -155,6 +158,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				BCA5C11723B3898400E15A6C /* SettingsView.swift in Sources */,
 				BCA5C11323B37A9100E15A6C /* EditCardsView.swift in Sources */,
 				BCA5C0F723B3660000E15A6C /* AppDelegate.swift in Sources */,
 				BCA5C0F923B3660000E15A6C /* SceneDelegate.swift in Sources */,
