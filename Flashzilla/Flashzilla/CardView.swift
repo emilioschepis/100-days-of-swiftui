@@ -9,7 +9,9 @@
 import SwiftUI
 
 struct CardView: View {
+    @Environment(\.accessibilityEnabled) var accessibilityEnabled
     @Environment(\.accessibilityDifferentiateWithoutColor) var differentiateWithoutColor
+    @State private var feedback = UINotificationFeedbackGenerator()
     @State private var isShowingAnswer = false
     @State private var offset = CGSize.zero
     
@@ -35,13 +37,18 @@ struct CardView: View {
             .shadow(radius: 10)
             
             VStack {
-                Text(card.prompt)
-                    .font(.largeTitle)
-                
-                if isShowingAnswer {
-                    Text(card.answer)
-                        .font(.title)
-                        .foregroundColor(.secondary)
+                if accessibilityEnabled {
+                    Text(isShowingAnswer ? card.answer : card.prompt)
+                        .font(.largeTitle)
+                } else {
+                    Text(card.prompt)
+                        .font(.largeTitle)
+
+                    if isShowingAnswer {
+                        Text(card.answer)
+                            .font(.title)
+                            .foregroundColor(.secondary)
+                    }
                 }
             }
         }
@@ -49,17 +56,25 @@ struct CardView: View {
         .rotationEffect(.degrees(Double(offset.width / 5)))
         .offset(x: offset.width * 2, y: 0)
         .opacity(3 - Double(abs(offset.width / 50)))
+        .accessibility(addTraits: .isButton)
         .onTapGesture {
             self.isShowingAnswer.toggle()
         }
+        .animation(.spring())
         .gesture(
             DragGesture()
                 .onChanged { gesture in
                     self.offset = gesture.translation
+                    self.feedback.prepare()
                 }
 
                 .onEnded { _ in
                     if abs(self.offset.width) > 100 {
+                        if self.offset.width > 0 {
+                            self.feedback.notificationOccurred(.success)
+                        } else {
+                            self.feedback.notificationOccurred(.error)
+                        }
                         self.removal?()
                     } else {
                         self.offset = .zero
