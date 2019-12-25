@@ -13,6 +13,8 @@
 		BCA5C0FD23B3660200E15A6C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCA5C0FC23B3660200E15A6C /* Assets.xcassets */; };
 		BCA5C10023B3660200E15A6C /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BCA5C0FF23B3660200E15A6C /* Preview Assets.xcassets */; };
 		BCA5C10323B3660200E15A6C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BCA5C10123B3660200E15A6C /* LaunchScreen.storyboard */; };
+		BCA5C10B23B36C6400E15A6C /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA5C10A23B36C6400E15A6C /* Card.swift */; };
+		BCA5C11123B36FFA00E15A6C /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BCA5C11023B36FFA00E15A6C /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +26,8 @@
 		BCA5C0FF23B3660200E15A6C /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		BCA5C10223B3660200E15A6C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		BCA5C10423B3660200E15A6C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		BCA5C10A23B36C6400E15A6C /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		BCA5C11023B36FFA00E15A6C /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +60,7 @@
 		BCA5C0F523B3660000E15A6C /* Flashzilla */ = {
 			isa = PBXGroup;
 			children = (
+				BCA5C10A23B36C6400E15A6C /* Card.swift */,
 				BCA5C0F623B3660000E15A6C /* AppDelegate.swift */,
 				BCA5C0F823B3660000E15A6C /* SceneDelegate.swift */,
 				BCA5C0FA23B3660000E15A6C /* ContentView.swift */,
@@ -63,6 +68,7 @@
 				BCA5C10123B3660200E15A6C /* LaunchScreen.storyboard */,
 				BCA5C10423B3660200E15A6C /* Info.plist */,
 				BCA5C0FE23B3660200E15A6C /* Preview Content */,
+				BCA5C11023B36FFA00E15A6C /* CardView.swift */,
 			);
 			path = Flashzilla;
 			sourceTree = "<group>";
@@ -149,6 +155,8 @@
 				BCA5C0F723B3660000E15A6C /* AppDelegate.swift in Sources */,
 				BCA5C0F923B3660000E15A6C /* SceneDelegate.swift in Sources */,
 				BCA5C0FB23B3660000E15A6C /* ContentView.swift in Sources */,
+				BCA5C10B23B36C6400E15A6C /* Card.swift in Sources */,
+				BCA5C11123B36FFA00E15A6C /* CardView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
