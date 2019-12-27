@@ -8,25 +8,57 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct OuterView: View {
     var body: some View {
-        HStack(alignment: .midAccountAndname) {
-            VStack {
-                Text("@twostraws")
-                    .alignmentGuide(.midAccountAndname) { d in d[VerticalAlignment.top] }
-                Image("paul-hudson")
-                    .resizable()
-                    .frame(width: 64, height: 64)
-            }
+        VStack {
+            Text("Top")
+            InnerView()
+                .background(Color.green)
+            Text("Bottom")
+        }
+    }
+}
 
-            VStack {
-                Text("Full name:")
-                Text("PAUL HUDSON")
-                    .alignmentGuide(.midAccountAndname) { d in d[VerticalAlignment.bottom] }
-                    .font(.largeTitle)
+struct InnerView: View {
+    var body: some View {
+        HStack {
+            Text("Left")
+            GeometryReader { geo in
+                Text("Center")
+                .background(Color.blue)
+                    .onTapGesture {
+                        print("Global center: \(geo.frame(in: .global).midX) x \(geo.frame(in: .global).midY)")
+                        print("Custom center: \(geo.frame(in: .named("Custom")).midX) x \(geo.frame(in: .named("Custom")).midY)")
+                        print("Local center: \(geo.frame(in: .local).midX) x \(geo.frame(in: .local).midY)")
+                    }
+            }
+            .background(Color.orange)
+            Text("Right")
+        }
+    }
+}
+
+struct ContentView: View {
+    let colors: [Color] = [.red, .green, .blue, .orange, .pink, .purple, .yellow]
+
+    var body: some View {
+        GeometryReader { fullView in
+            ScrollView(.horizontal, showsIndicators: false) {
+                HStack {
+                    ForEach(0..<50) { index in
+                        GeometryReader { geo in
+                            Rectangle()
+                                .fill(self.colors[index % 7])
+                                .frame(height: 150)
+                                .rotation3DEffect(.degrees(-Double(geo.frame(in: .global).midX - fullView.size.width / 2) / 10), axis: (x: 0, y: 1, z: 0))
+                        }
+                        .frame(width: 150)
+                    }
+                }
+                .padding(.horizontal, ((fullView.size.width - 150) / 2))
             }
         }
-        .background(Color.red)
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
