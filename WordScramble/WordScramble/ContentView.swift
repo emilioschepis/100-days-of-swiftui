@@ -114,20 +114,29 @@ struct ContentView: View {
     
     var body: some View {
         NavigationView {
-            VStack {
-                TextField("Enter your word", text: $newWord, onCommit: addNewWord)
-                    .autocapitalization(.none)
-                    .textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding()
-                List(usedWords, id: \.self) { word in
-                    HStack {
-                        Image(systemName: "\(word.count).circle")
-                        Text(word)
+            GeometryReader { fullScreen in
+                VStack {
+                    TextField("Enter your word", text: self.$newWord, onCommit: self.addNewWord)
+                        .autocapitalization(.none)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding()
+                    List(self.usedWords, id: \.self) { word in
+                        GeometryReader { geo in
+                            HStack {
+                                Image(systemName: "\(word.count).circle")
+                                    .foregroundColor(Color(hue: Double(geo.frame(in: .global).maxY / fullScreen.size.height),
+                                                           saturation: 1,
+                                                           brightness: 1))
+                                Text(word)
+                                Spacer()
+                            }
+                            .accessibilityElement(children: .ignore)
+                            .accessibility(label: Text("\(word), \(word.count) letters"))
+                            .offset(x: max(0, (geo.frame(in: .global).maxY / fullScreen.size.height) * 2000 - 2000), y: 0)
+                        }
                     }
-                    .accessibilityElement(children: .ignore)
-                    .accessibility(label: Text("\(word), \(word.count) letters"))
+                    Text("Current score: \(self.score)")
                 }
-                Text("Current score: \(score)")
             }
             .navigationBarTitle(rootWord)
             .onAppear(perform: startGame)

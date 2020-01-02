@@ -34,16 +34,22 @@ struct MissionView: View {
     }
     
     var body: some View {
-        GeometryReader { geo in
+        GeometryReader { fullScreen in
             ScrollView(.vertical) {
                 VStack {
-                    Image(decorative: self.mission.image)
-                        .resizable()
-                        .scaledToFit()
-                        .frame(maxWidth: geo.size.width * 0.7)
+                    GeometryReader { geo in
+                        Image(decorative: self.mission.image)
+                            .resizable()
+                            .scaledToFit()
+                            .scaleEffect(max(0.8, min(1.0, geo.frame(in: .global).minY / (fullScreen.size.height / 10))))
+                            .frame(width: geo.size.width)
+                    }
+                    .frame(height: 300)
+                    
                     Text(self.mission.formattedLaunchDate)
                         .fontWeight(.bold)
                     Text(self.mission.description)
+                        .layoutPriority(1)
                         .padding()
                     
                     ForEach(self.astronauts, id: \.role) { crewMember in
