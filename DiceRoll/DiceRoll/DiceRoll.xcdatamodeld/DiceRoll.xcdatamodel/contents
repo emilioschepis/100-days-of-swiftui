@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="15702" systemVersion="19C57" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Dice" representedClassName="Dice" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="roll" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="sides" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="result" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Result" inverseName="rolls" inverseEntity="Result"/>
+    </entity>
+    <entity name="Result" representedClassName="Result" syncable="YES">
+        <attribute name="id" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="timestamp" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <relationship name="rolls" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Dice" inverseName="result" inverseEntity="Dice"/>
+    </entity>
+    <elements>
+        <element name="Result" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Dice" positionX="-54" positionY="18" width="128" height="103"/>
+    </elements>
+</model>
