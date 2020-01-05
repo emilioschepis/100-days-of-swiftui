@@ -14,7 +14,10 @@ class Favorites: ObservableObject {
     private let saveKey = "Favorites"
     
     init() {
-        
+        if let savedResorts = UserDefaults.standard.array(forKey: saveKey) as? [String] {
+            self.resorts = Set(savedResorts)
+            return
+        }
         
         self.resorts = []
     }
@@ -36,6 +39,6 @@ class Favorites: ObservableObject {
     }
     
     func save() {
-        
+        UserDefaults.standard.set(resorts.sorted(), forKey: saveKey)
     }
 }
