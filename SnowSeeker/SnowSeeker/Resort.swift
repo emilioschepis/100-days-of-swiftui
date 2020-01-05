@@ -9,6 +9,8 @@
 import Foundation
 
 struct Resort: Codable, Identifiable {
+    static let example = Bundle.main.decode([Resort].self, from: "resorts.json").first!
+
     let id: String
     let name: String
     let country: String
@@ -21,5 +23,7 @@ struct Resort: Codable, Identifiable {
     let runs: Int
     let facilities: [String]
     
-    static let example = Bundle.main.decode([Resort].self, from: "resorts.json").first!
+    var facilityTypes: [Facility] {
+        facilities.map(Facility.init)
+    }
 }
